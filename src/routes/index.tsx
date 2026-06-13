@@ -12,6 +12,18 @@ import {
   Footer,
   TrustedBy,
 } from "@/components/landing/more-sections";
+import {
+  AchievementVault,
+  XPSystem,
+  CareerDNA,
+  HallOfFame,
+  WeeklyChallenges,
+  CareerReplay,
+  FutureSelfAI,
+  MemoryGraph,
+  PremiumLegacyCTA,
+} from "@/components/landing/gamification";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
