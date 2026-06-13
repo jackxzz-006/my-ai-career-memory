@@ -12,6 +12,18 @@ import {
   Footer,
   TrustedBy,
 } from "@/components/landing/more-sections";
+import {
+  AchievementVault,
+  XPSystem,
+  CareerDNA,
+  HallOfFame,
+  WeeklyChallenges,
+  CareerReplay,
+  FutureSelfAI,
+  MemoryGraph,
+  PremiumLegacyCTA,
+} from "@/components/landing/gamification";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -57,12 +69,22 @@ function Landing() {
         <MemoryEvolution />
         <DashboardPreview />
         <FuturePredictor />
+        <AchievementVault />
+        <XPSystem />
+        <CareerDNA />
+        <WeeklyChallenges />
+        <HallOfFame />
+        <CareerReplay />
+        <FutureSelfAI />
+        <MemoryGraph />
         <Testimonials />
         <Pricing />
         <FinalCTA />
+        <PremiumLegacyCTA />
       </main>
 
       <Footer />
     </div>
   );
 }
+
