@@ -69,12 +69,22 @@ function Landing() {
         <MemoryEvolution />
         <DashboardPreview />
         <FuturePredictor />
+        <AchievementVault />
+        <XPSystem />
+        <CareerDNA />
+        <WeeklyChallenges />
+        <HallOfFame />
+        <CareerReplay />
+        <FutureSelfAI />
+        <MemoryGraph />
         <Testimonials />
         <Pricing />
         <FinalCTA />
+        <PremiumLegacyCTA />
       </main>
 
       <Footer />
     </div>
   );
 }
+
