@@ -1,29 +1,68 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AuroraBackground, MouseGlow, Particles } from "@/components/landing/background";
+import { Navbar } from "@/components/landing/navbar";
+import { Hero } from "@/components/landing/hero";
+import { Features } from "@/components/landing/features";
+import { HowItWorks, MemoryEvolution, DashboardPreview } from "@/components/landing/sections";
+import {
+  FuturePredictor,
+  Testimonials,
+  Pricing,
+  FinalCTA,
+  Footer,
+  TrustedBy,
+} from "@/components/landing/more-sections";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "CareerTwin AI — Your Professional Memory That Never Forgets" },
+      {
+        name: "description",
+        content:
+          "CareerTwin AI is an AI-powered digital career twin that remembers every skill, project, certification, and goal — evolving into your personal career advisor.",
+      },
+      { property: "og:title", content: "CareerTwin AI — Your Digital Career Twin" },
+      {
+        property: "og:description",
+        content:
+          "An AI that remembers every achievement, interview, and career goal — becoming smarter with every interaction.",
+      },
+    ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
+      },
     ],
   }),
-  component: Index,
+  component: Landing,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Landing() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="relative min-h-screen overflow-x-hidden bg-[#050505] text-white">
+      <AuroraBackground />
+      <Particles count={28} />
+      <MouseGlow />
+      <Navbar />
+
+      <main>
+        <Hero />
+        <TrustedBy />
+        <Features />
+        <HowItWorks />
+        <MemoryEvolution />
+        <DashboardPreview />
+        <FuturePredictor />
+        <Testimonials />
+        <Pricing />
+        <FinalCTA />
+      </main>
+
+      <Footer />
     </div>
   );
 }
