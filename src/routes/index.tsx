@@ -16,13 +16,16 @@ import {
   AchievementVault,
   XPSystem,
   CareerDNA,
-  HallOfFame,
-  WeeklyChallenges,
   CareerReplay,
-  FutureSelfAI,
   MemoryGraph,
   PremiumLegacyCTA,
 } from "@/components/landing/gamification";
+import {
+  HallOfFameLive,
+  ActivityFeedLive,
+  WeeklyChallengesLive,
+  FutureSelfAILive,
+} from "@/components/landing/live";
 
 
 export const Route = createFileRoute("/")({
@@ -72,10 +75,11 @@ function Landing() {
         <AchievementVault />
         <XPSystem />
         <CareerDNA />
-        <WeeklyChallenges />
-        <HallOfFame />
+        <WeeklyChallengesLive />
+        <HallOfFameLive />
+        <ActivityFeedLive />
         <CareerReplay />
-        <FutureSelfAI />
+        <FutureSelfAILive />
         <MemoryGraph />
         <Testimonials />
         <Pricing />

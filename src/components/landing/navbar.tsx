@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { useAuth } from "@/hooks/use-auth";
 
 const links = [
   { label: "Features", href: "#features" },
@@ -56,16 +58,7 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <button className="text-sm text-soft-gray transition hover:text-white">
-            Sign In
-          </button>
-          <button className="group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium text-white shadow-glow transition hover:shadow-glow-lg">
-            <span className="absolute inset-0 bg-gradient-to-r from-royal-purple to-electric-purple" />
-            <span className="absolute inset-0 bg-gradient-to-r from-electric-purple to-royal-purple opacity-0 transition group-hover:opacity-100" />
-            <span className="relative">Join Beta</span>
-          </button>
-        </div>
+        <NavbarAuthButtons />
 
         <button
           className="lg:hidden text-white"
@@ -93,16 +86,40 @@ export function Navbar() {
               </a>
             ))}
             <div className="flex gap-3 pt-2">
-              <button className="flex-1 rounded-full border border-white/10 px-4 py-2 text-sm">
+              <Link to="/auth" className="flex-1 rounded-full border border-white/10 px-4 py-2 text-center text-sm">
                 Sign In
-              </button>
-              <button className="flex-1 rounded-full bg-gradient-to-r from-royal-purple to-electric-purple px-4 py-2 text-sm">
+              </Link>
+              <Link to="/auth" className="flex-1 rounded-full bg-gradient-to-r from-royal-purple to-electric-purple px-4 py-2 text-center text-sm">
                 Join Beta
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       )}
     </motion.header>
+  );
+}
+
+function NavbarAuthButtons() {
+  const { user, signOut } = useAuth();
+  return (
+    <div className="hidden items-center gap-3 lg:flex">
+      {user ? (
+        <>
+          <span className="hidden text-xs text-soft-gray xl:inline">{user.email}</span>
+          <button onClick={() => signOut()} className="text-sm text-soft-gray transition hover:text-white">
+            Sign Out
+          </button>
+        </>
+      ) : (
+        <>
+          <Link to="/auth" className="text-sm text-soft-gray transition hover:text-white">Sign In</Link>
+          <Link to="/auth" className="group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium text-white shadow-glow transition hover:shadow-glow-lg">
+            <span className="absolute inset-0 bg-gradient-to-r from-royal-purple to-electric-purple" />
+            <span className="relative">Join Beta</span>
+          </Link>
+        </>
+      )}
+    </div>
   );
 }
