@@ -99,3 +99,27 @@ export function Navbar() {
     </motion.header>
   );
 }
+
+function NavbarAuthButtons() {
+  const { user, signOut } = useAuth();
+  return (
+    <div className="hidden items-center gap-3 lg:flex">
+      {user ? (
+        <>
+          <span className="hidden text-xs text-soft-gray xl:inline">{user.email}</span>
+          <button onClick={() => signOut()} className="text-sm text-soft-gray transition hover:text-white">
+            Sign Out
+          </button>
+        </>
+      ) : (
+        <>
+          <Link to="/auth" className="text-sm text-soft-gray transition hover:text-white">Sign In</Link>
+          <Link to="/auth" className="group relative overflow-hidden rounded-full px-5 py-2 text-sm font-medium text-white shadow-glow transition hover:shadow-glow-lg">
+            <span className="absolute inset-0 bg-gradient-to-r from-royal-purple to-electric-purple" />
+            <span className="relative">Join Beta</span>
+          </Link>
+        </>
+      )}
+    </div>
+  );
+}
