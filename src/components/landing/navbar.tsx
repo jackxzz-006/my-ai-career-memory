@@ -91,7 +91,7 @@ export function Navbar() {
               </Link>
               <Link to="/auth" className="flex-1 rounded-full bg-gradient-to-r from-royal-purple to-electric-purple px-4 py-2 text-center text-sm">
                 Join Beta
-              </button>
+              </Link>
             </div>
           </div>
         </div>
