@@ -75,10 +75,11 @@ function Landing() {
         <AchievementVault />
         <XPSystem />
         <CareerDNA />
-        <WeeklyChallenges />
-        <HallOfFame />
+        <WeeklyChallengesLive />
+        <HallOfFameLive />
+        <ActivityFeedLive />
         <CareerReplay />
-        <FutureSelfAI />
+        <FutureSelfAILive />
         <MemoryGraph />
         <Testimonials />
         <Pricing />
