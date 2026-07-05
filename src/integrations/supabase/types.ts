@@ -86,6 +86,39 @@ export type Database = {
         }
         Relationships: []
       }
+      recommendations: {
+        Row: {
+          constraints: string | null
+          created_at: string
+          education_level: string
+          goals: string
+          id: string
+          paths: Json
+          skills: string
+          user_id: string
+        }
+        Insert: {
+          constraints?: string | null
+          created_at?: string
+          education_level: string
+          goals: string
+          id?: string
+          paths: Json
+          skills: string
+          user_id: string
+        }
+        Update: {
+          constraints?: string | null
+          created_at?: string
+          education_level?: string
+          goals?: string
+          id?: string
+          paths?: Json
+          skills?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
