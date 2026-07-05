@@ -108,8 +108,8 @@ function NavbarAuthButtons() {
     <div className="hidden items-center gap-3 lg:flex">
       {user ? (
         <>
-          <Link to="/_authenticated/recommend" className="text-sm text-soft-gray transition hover:text-white">Recommend</Link>
-          <Link to="/_authenticated/history" className="text-sm text-soft-gray transition hover:text-white">History</Link>
+          <Link to="/recommend" className="text-sm text-soft-gray transition hover:text-white">Recommend</Link>
+          <Link to="/history" className="text-sm text-soft-gray transition hover:text-white">History</Link>
           {avatarUrl ? (
             <img src={avatarUrl} alt="" className="h-8 w-8 rounded-full border border-white/10" />
           ) : (

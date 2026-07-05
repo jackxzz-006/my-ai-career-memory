@@ -32,7 +32,7 @@ function HistoryPage() {
             <h1 className="mt-4 font-display text-3xl font-semibold">Past recommendations</h1>
           </div>
           <Link
-            to="/_authenticated/recommend"
+            to="/recommend"
             className="rounded-full bg-gradient-to-r from-royal-purple to-electric-purple px-5 py-2.5 text-sm font-medium shadow-glow"
           >
             <Sparkles className="mr-1.5 -mt-0.5 inline h-4 w-4" /> New
@@ -52,7 +52,7 @@ function HistoryPage() {
         {data && data.length === 0 && (
           <div className="rounded-2xl glass p-10 text-center text-sm text-soft-gray">
             No recommendations yet.{" "}
-            <Link to="/_authenticated/recommend" className="text-violet-glow hover:underline">
+            <Link to="/recommend" className="text-violet-glow hover:underline">
               Generate your first one
             </Link>
             .

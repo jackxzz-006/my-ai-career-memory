@@ -57,7 +57,7 @@ function RecommendPage() {
           <p className="mt-2 text-sm text-soft-gray">
             Tell CareerTwin about you — it returns 2–3 tailored career & education paths.
           </p>
-          <Link to="/_authenticated/history" className="mt-3 inline-block text-xs text-violet-glow hover:underline">
+          <Link to="/history" className="mt-3 inline-block text-xs text-violet-glow hover:underline">
             View past recommendations →
           </Link>
         </div>
