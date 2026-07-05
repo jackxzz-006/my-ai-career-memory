@@ -124,9 +124,7 @@ function RootComponent() {
   const router = useRouter();
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { supabase } = require("@/integrations/supabase/client");
-    const { data: sub } = supabase.auth.onAuthStateChange((event: string) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
