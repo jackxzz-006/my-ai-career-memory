@@ -102,11 +102,21 @@ export function Navbar() {
 
 function NavbarAuthButtons() {
   const { user, signOut } = useAuth();
+  const initial = (user?.user_metadata?.username || user?.email || "?").slice(0, 1).toUpperCase();
+  const avatarUrl = user?.user_metadata?.avatar_url as string | undefined;
   return (
     <div className="hidden items-center gap-3 lg:flex">
       {user ? (
         <>
-          <span className="hidden text-xs text-soft-gray xl:inline">{user.email}</span>
+          <Link to="/_authenticated/recommend" className="text-sm text-soft-gray transition hover:text-white">Recommend</Link>
+          <Link to="/_authenticated/history" className="text-sm text-soft-gray transition hover:text-white">History</Link>
+          {avatarUrl ? (
+            <img src={avatarUrl} alt="" className="h-8 w-8 rounded-full border border-white/10" />
+          ) : (
+            <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-royal-purple to-electric-purple text-xs font-semibold">
+              {initial}
+            </div>
+          )}
           <button onClick={() => signOut()} className="text-sm text-soft-gray transition hover:text-white">
             Sign Out
           </button>
