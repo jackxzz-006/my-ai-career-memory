@@ -20,7 +20,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/" });
+      if (data.session) navigate({ to: "/dashboard" });
     });
   }, [navigate]);
 
@@ -44,7 +44,7 @@ function AuthPage() {
         if (error) throw error;
         toast.success("Welcome back");
       }
-      navigate({ to: "/" });
+      navigate({ to: "/dashboard" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Authentication failed");
     } finally {
@@ -83,7 +83,7 @@ function AuthPage() {
                 if (result.error) throw result.error;
                 if (result.redirected) return;
                 toast.success("Signed in with Google");
-                navigate({ to: "/" });
+                navigate({ to: "/dashboard" });
               } catch (err) {
                 toast.error(err instanceof Error ? err.message : "Google sign-in failed");
               }
