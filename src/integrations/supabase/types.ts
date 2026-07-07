@@ -65,22 +65,96 @@ export type Database = {
         }
         Relationships: []
       }
-      profiles: {
+      learning_paths: {
         Row: {
           created_at: string
+          description: string
           id: string
+          role: Database["public"]["Enums"]["app_role"]
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          sort_order?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          sort_order?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      learning_steps: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          path_id: string
+          sort_order: number
+          title: string
+          xp_reward: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          path_id: string
+          sort_order?: number
+          title: string
+          xp_reward?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          path_id?: string
+          sort_order?: number
+          title?: string
+          xp_reward?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_steps_path_id_fkey"
+            columns: ["path_id"]
+            isOneToOne: false
+            referencedRelation: "learning_paths"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          primary_role: Database["public"]["Enums"]["app_role"] | null
           username: string
           xp: number
         }
         Insert: {
+          avatar_url?: string | null
           created_at?: string
+          display_name?: string | null
           id: string
+          primary_role?: Database["public"]["Enums"]["app_role"] | null
           username: string
           xp?: number
         }
         Update: {
+          avatar_url?: string | null
           created_at?: string
+          display_name?: string | null
           id?: string
+          primary_role?: Database["public"]["Enums"]["app_role"] | null
           username?: string
           xp?: number
         }
@@ -119,15 +193,149 @@ export type Database = {
         }
         Relationships: []
       }
+      tasks: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          title: string
+          xp_reward: number
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          title: string
+          xp_reward?: number
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          title?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_step_progress: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          status: string
+          step_id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          status?: string
+          step_id: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          status?: string
+          step_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_step_progress_step_id_fkey"
+            columns: ["step_id"]
+            isOneToOne: false
+            referencedRelation: "learning_steps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_task_progress: {
+        Row: {
+          completed_at: string
+          id: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          id?: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          id?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_task_progress_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      admin_set_user_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: undefined
+      }
+      complete_step: { Args: { _step_id: string }; Returns: number }
+      complete_task: { Args: { _task_id: string }; Returns: number }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      set_primary_role: {
+        Args: { _role: Database["public"]["Enums"]["app_role"] }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "job_seeker" | "mentor" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -254,6 +462,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "job_seeker", "mentor", "admin"],
+    },
   },
 } as const

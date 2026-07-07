@@ -13,7 +13,14 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRecommendRouteImport } from './routes/_authenticated/recommend'
+import { Route as AuthenticatedPathsRouteImport } from './routes/_authenticated/paths'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedHistoryRouteImport } from './routes/_authenticated/history'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/_admin/route'
+import { Route as AuthenticatedPathsPathIdRouteImport } from './routes/_authenticated/paths.$pathId'
+import { Route as AuthenticatedAdminAdminRouteImport } from './routes/_authenticated/_admin/admin'
+import { Route as AuthenticatedAdminAdminUsersUserIdRouteImport } from './routes/_authenticated/_admin/admin.users.$userId'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -34,44 +41,126 @@ const AuthenticatedRecommendRoute = AuthenticatedRecommendRouteImport.update({
   path: '/recommend',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPathsRoute = AuthenticatedPathsRouteImport.update({
+  id: '/paths',
+  path: '/paths',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedHistoryRoute = AuthenticatedHistoryRouteImport.update({
   id: '/history',
   path: '/history',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/_admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPathsPathIdRoute =
+  AuthenticatedPathsPathIdRouteImport.update({
+    id: '/$pathId',
+    path: '/$pathId',
+    getParentRoute: () => AuthenticatedPathsRoute,
+  } as any)
+const AuthenticatedAdminAdminRoute = AuthenticatedAdminAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminAdminUsersUserIdRoute =
+  AuthenticatedAdminAdminUsersUserIdRouteImport.update({
+    id: '/users/$userId',
+    path: '/users/$userId',
+    getParentRoute: () => AuthenticatedAdminAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/history': typeof AuthenticatedHistoryRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/paths': typeof AuthenticatedPathsRouteWithChildren
   '/recommend': typeof AuthenticatedRecommendRoute
+  '/admin': typeof AuthenticatedAdminAdminRouteWithChildren
+  '/paths/$pathId': typeof AuthenticatedPathsPathIdRoute
+  '/admin/users/$userId': typeof AuthenticatedAdminAdminUsersUserIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/history': typeof AuthenticatedHistoryRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/paths': typeof AuthenticatedPathsRouteWithChildren
   '/recommend': typeof AuthenticatedRecommendRoute
+  '/admin': typeof AuthenticatedAdminAdminRouteWithChildren
+  '/paths/$pathId': typeof AuthenticatedPathsPathIdRoute
+  '/admin/users/$userId': typeof AuthenticatedAdminAdminUsersUserIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/_admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/history': typeof AuthenticatedHistoryRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/paths': typeof AuthenticatedPathsRouteWithChildren
   '/_authenticated/recommend': typeof AuthenticatedRecommendRoute
+  '/_authenticated/_admin/admin': typeof AuthenticatedAdminAdminRouteWithChildren
+  '/_authenticated/paths/$pathId': typeof AuthenticatedPathsPathIdRoute
+  '/_authenticated/_admin/admin/users/$userId': typeof AuthenticatedAdminAdminUsersUserIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/history' | '/recommend'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/history'
+    | '/onboarding'
+    | '/paths'
+    | '/recommend'
+    | '/admin'
+    | '/paths/$pathId'
+    | '/admin/users/$userId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/history' | '/recommend'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/history'
+    | '/onboarding'
+    | '/paths'
+    | '/recommend'
+    | '/admin'
+    | '/paths/$pathId'
+    | '/admin/users/$userId'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/_admin'
+    | '/_authenticated/dashboard'
     | '/_authenticated/history'
+    | '/_authenticated/onboarding'
+    | '/_authenticated/paths'
     | '/_authenticated/recommend'
+    | '/_authenticated/_admin/admin'
+    | '/_authenticated/paths/$pathId'
+    | '/_authenticated/_admin/admin/users/$userId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -110,6 +199,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRecommendRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/paths': {
+      id: '/_authenticated/paths'
+      path: '/paths'
+      fullPath: '/paths'
+      preLoaderRoute: typeof AuthenticatedPathsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/history': {
       id: '/_authenticated/history'
       path: '/history'
@@ -117,16 +220,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHistoryRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/_admin': {
+      id: '/_authenticated/_admin'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/paths/$pathId': {
+      id: '/_authenticated/paths/$pathId'
+      path: '/$pathId'
+      fullPath: '/paths/$pathId'
+      preLoaderRoute: typeof AuthenticatedPathsPathIdRouteImport
+      parentRoute: typeof AuthenticatedPathsRoute
+    }
+    '/_authenticated/_admin/admin': {
+      id: '/_authenticated/_admin/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminAdminRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/_admin/admin/users/$userId': {
+      id: '/_authenticated/_admin/admin/users/$userId'
+      path: '/users/$userId'
+      fullPath: '/admin/users/$userId'
+      preLoaderRoute: typeof AuthenticatedAdminAdminUsersUserIdRouteImport
+      parentRoute: typeof AuthenticatedAdminAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminAdminRouteChildren {
+  AuthenticatedAdminAdminUsersUserIdRoute: typeof AuthenticatedAdminAdminUsersUserIdRoute
+}
+
+const AuthenticatedAdminAdminRouteChildren: AuthenticatedAdminAdminRouteChildren =
+  {
+    AuthenticatedAdminAdminUsersUserIdRoute:
+      AuthenticatedAdminAdminUsersUserIdRoute,
+  }
+
+const AuthenticatedAdminAdminRouteWithChildren =
+  AuthenticatedAdminAdminRoute._addFileChildren(
+    AuthenticatedAdminAdminRouteChildren,
+  )
+
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminAdminRoute: typeof AuthenticatedAdminAdminRouteWithChildren
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminAdminRoute: AuthenticatedAdminAdminRouteWithChildren,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
+interface AuthenticatedPathsRouteChildren {
+  AuthenticatedPathsPathIdRoute: typeof AuthenticatedPathsPathIdRoute
+}
+
+const AuthenticatedPathsRouteChildren: AuthenticatedPathsRouteChildren = {
+  AuthenticatedPathsPathIdRoute: AuthenticatedPathsPathIdRoute,
+}
+
+const AuthenticatedPathsRouteWithChildren =
+  AuthenticatedPathsRoute._addFileChildren(AuthenticatedPathsRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedHistoryRoute: typeof AuthenticatedHistoryRoute
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedPathsRoute: typeof AuthenticatedPathsRouteWithChildren
   AuthenticatedRecommendRoute: typeof AuthenticatedRecommendRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedHistoryRoute: AuthenticatedHistoryRoute,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedPathsRoute: AuthenticatedPathsRouteWithChildren,
   AuthenticatedRecommendRoute: AuthenticatedRecommendRoute,
 }
 
