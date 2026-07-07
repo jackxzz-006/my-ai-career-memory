@@ -3,6 +3,8 @@ import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+
 
 const links = [
   { label: "Features", href: "#features" },
