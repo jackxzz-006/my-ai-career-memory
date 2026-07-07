@@ -1,0 +1,12 @@
+
+DROP POLICY IF EXISTS "Users update own profile" ON public.profiles;
+
+REVOKE UPDATE ON public.profiles FROM authenticated;
+GRANT UPDATE (username) ON public.profiles TO authenticated;
+
+CREATE POLICY "Users update own profile"
+ON public.profiles
+FOR UPDATE
+TO authenticated
+USING (auth.uid() = id)
+WITH CHECK (auth.uid() = id);
