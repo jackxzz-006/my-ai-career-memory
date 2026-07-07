@@ -104,14 +104,30 @@ export function Navbar() {
 
 function NavbarAuthButtons() {
   const { user, signOut } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
   const initial = (user?.user_metadata?.username || user?.email || "?").slice(0, 1).toUpperCase();
   const avatarUrl = user?.user_metadata?.avatar_url as string | undefined;
+
+  useEffect(() => {
+    if (!user) {
+      setIsAdmin(false);
+      return;
+    }
+    supabase.rpc("has_role", { _user_id: user.id, _role: "admin" }).then(({ data }) => {
+      setIsAdmin(Boolean(data));
+    });
+  }, [user]);
+
   return (
     <div className="hidden items-center gap-3 lg:flex">
       {user ? (
         <>
+          <Link to="/dashboard" className="text-sm text-soft-gray transition hover:text-white">Dashboard</Link>
+          <Link to="/paths" className="text-sm text-soft-gray transition hover:text-white">Paths</Link>
           <Link to="/recommend" className="text-sm text-soft-gray transition hover:text-white">Recommend</Link>
-          <Link to="/history" className="text-sm text-soft-gray transition hover:text-white">History</Link>
+          {isAdmin && (
+            <Link to="/admin" className="text-sm font-medium text-electric-purple transition hover:text-white">Admin</Link>
+          )}
           {avatarUrl ? (
             <img src={avatarUrl} alt="" className="h-8 w-8 rounded-full border border-white/10" />
           ) : (
@@ -135,3 +151,4 @@ function NavbarAuthButtons() {
     </div>
   );
 }
+
